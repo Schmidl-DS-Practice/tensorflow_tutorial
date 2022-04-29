@@ -5,6 +5,7 @@
 name: tensorflow_tutorial
 
 dependencies:
+  - tensorflow
   - python
   - numpy
   - pandas
