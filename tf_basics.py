@@ -15,9 +15,21 @@ os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 # rank-2
 # x = tf.constant([[1,2,3], [4,5,6]])
 
-#3x3
+# 3x3
 # x = tf.ones((3,3))
-x = tf.zeros((3,3))
-x = tf.eye(3)
-print(x)
+# x = tf.zeros((3,3))
+# x = tf.eye(3)
+# x = tf.random.normal((3,3), mean=0, stddev=1)
+# x = tf.random.uniform((3,3), minval=0, maxval=1)
+# x = tf.range(10)
+
+# cast
+# x = tf.cast(x, dtype=tf.float32)
+# print(x)
+
+# elementwise
+x = tf.constant([1,2,3])
+y = tf.constant([4,5,6])
+z = tf.add(x,y)
+print(z)
 
