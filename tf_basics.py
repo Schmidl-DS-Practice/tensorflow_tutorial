@@ -3,6 +3,7 @@
 # build computational graph / backpropagation
 # immutable
 
+from turtle import st
 import tensorflow as tf
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
@@ -32,4 +33,3 @@ x = tf.constant([1,2,3])
 y = tf.constant([4,5,6])
 z = tf.add(x,y)
 print(z)
-
