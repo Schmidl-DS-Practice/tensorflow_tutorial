@@ -2,6 +2,8 @@ import tensorflow as tf
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 keras = tf.keras
+layers = keras.layers
+models = keras.models
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -15,9 +17,9 @@ def main():
     xtrain, xtest = xtrain/255, xtest/255
 
     # model
-    model = keras.models.Sequential([keras.layers.Flatten(input_shape=(28,28)),
-                                  keras.layers.Dense(128, activation="relu"),
-                                  keras.layers.Dense(10)])
+    model = models.Sequential([layers.Flatten(input_shape=(28,28)),
+                                    layers.Dense(128, activation="relu"),
+                                    layers.Dense(10)])
     print(model.summary())
 
     ## another way to build the Sequential model:
@@ -45,10 +47,7 @@ def main():
     ## predictions
 
     ## 1. option: build new model with Softmax layer
-    probability_model = keras.models.Sequential([
-        model,
-        keras.layers.Softmax()
-    ])
+    probability_model = models.Sequential([model, layers.Softmax()])
 
     predictions = probability_model(xtest)
     pred0 = predictions[0]
