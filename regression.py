@@ -6,7 +6,6 @@ import pandas as pd
 import tensorflow as tf
 keras = tf.keras
 layers = keras.layers
-# preprocessing = layers.experimental.preprocessing
 models = keras.models
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "2"
 np.set_printoptions(precision=3, suppress=True)
@@ -18,7 +17,7 @@ def main():
                     'Acceleration', 'Model Year', 'Origin']
 
     dataset = pd.read_csv(url, names=column_names, na_values='?',
-                        comment='\t', sep=' ', skipinitialspace=True)
+                          comment='\t', sep=' ', skipinitialspace=True)
 
 
     # clean data
@@ -48,7 +47,7 @@ def main():
     print(train_dataset.describe().transpose()[['mean', 'std']])
 
     # Normalization
-    normalizer = preprocessing.Normalization()
+    normalizer = layers.Normalization()
 
     # adapt to the data
     normalizer.adapt(np.array(train_features))
@@ -70,7 +69,7 @@ def main():
     print(single_feature.shape, train_features.shape)
 
     # Normalization
-    single_feature_normalizer = preprocessing.Normalization()
+    single_feature_normalizer = layers.Normalization()
 
     # adapt to the data
     single_feature_normalizer.adapt(single_feature)
