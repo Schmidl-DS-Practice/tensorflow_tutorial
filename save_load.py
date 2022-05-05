@@ -39,28 +39,26 @@ model.fit(x_train,
 print("Evaluate:")
 model.evaluate(x_test,  y_test, verbose=2)
 
-# 1) Save whole model
-# two formats: SavedModel or HDF5
-model.save("nn")  # no file ending = SavedModel
-model.save("nn.h5")  # .h5 = HDF5
+## no file ending = SavedModel
+model.save("nn")
+## .h5 = HDF5
+# model.save("nn.h5")
 
 new_model = keras.models.load_model("nn.h5")
 
-# 2) save only weights
-model.save_weights("nn_weights.h5")
+## save only weights
+# model.save_weights("nn_weights.h5")
 
-# initilaize model first:
-# model = keras.Sequential([...])
-model.load_weights("nn_weights.h5")
+# model.load_weights("nn_weights.h5")
 
-# 3) save only architecture, to_json
-json_string = model.to_json()
+## save only architecture, to_json
+# json_string = model.to_json()
 
-with open("nn_model.json", "w") as f:
-    f.write(json_string)
+# with open("nn_model.json", "w") as f:
+#     f.write(json_string)
 
-with open("nn_model.json", "r") as f:
-    loaded_json_string = f.read()
+# with open("nn_model.json", "r") as f:
+#     loaded_json_string = f.read()
 
-new_model = keras.models.model_from_json(loaded_json_string)
-print(new_model.summary())
+# new_model = keras.models.model_from_json(loaded_json_string)
+# print(new_model.summary())
