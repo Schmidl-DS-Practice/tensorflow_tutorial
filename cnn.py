@@ -22,11 +22,11 @@ def main():
 
     # model...
     model = keras.models.Sequential()
-    model.add(layers.Conv2D(32, (3,3),
-                            strides=(1,1),
+    model.add(layers.Conv2D(32, (3, 3),
+                            strides=(1, 1),
                             padding="valid",
                             activation='relu',
-                            input_shape=(32,32,3)))
+                            input_shape=(32, 32, 3)))
 
     model.add(layers.MaxPool2D((2,2)))
     model.add(layers.Conv2D(32, 3,
