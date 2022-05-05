@@ -2,8 +2,8 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-
 import tensorflow as tf
+
 keras = tf.keras
 layers = keras.layers
 models = keras.models
@@ -16,8 +16,12 @@ def main():
     column_names = ['MPG', 'Cylinders', 'Displacement', 'Horsepower', 'Weight',
                     'Acceleration', 'Model Year', 'Origin']
 
-    dataset = pd.read_csv(url, names=column_names, na_values='?',
-                          comment='\t', sep=' ', skipinitialspace=True)
+    dataset = pd.read_csv(url,
+                          names=column_names,
+                          na_values='?',
+                          comment='\t',
+                          sep=' ',
+                          skipinitialspace=True)
 
 
     # clean data
@@ -28,6 +32,7 @@ def main():
     dataset['USA'] = (origin == 1)*1
     dataset['Europe'] = (origin == 2)*1
     dataset['Japan'] = (origin == 3)*1
+
     # Split the data into train and test
     train_dataset = dataset.sample(frac=0.8, random_state=0)
     test_dataset = dataset.drop(train_dataset.index)
@@ -47,18 +52,12 @@ def main():
     print(train_dataset.describe().transpose()[['mean', 'std']])
 
     # Normalization
-    normalizer = layers.Normalization()
-
-    # adapt to the data
-    normalizer.adapt(np.array(train_features))
-    print(normalizer.mean.numpy())
+    normalizer = keras.utils.normalize(train_features)
 
     # When the layer is called it returns the input data, with each feature independently normalized:
     # (input-mean)/stddev
     first = np.array(train_features[:1])
     print('First example:', first)
-    print('Normalized:', normalizer(first).numpy())
-
 
     # Regression
     # 1. Normalize the input horsepower
@@ -69,14 +68,12 @@ def main():
     print(single_feature.shape, train_features.shape)
 
     # Normalization
-    single_feature_normalizer = layers.Normalization()
+    single_feature_normalizer = keras.utils.normalize(single_feature)
 
-    # adapt to the data
-    single_feature_normalizer.adapt(single_feature)
 
     # Sequential model
     single_feature_model = keras.models.Sequential([single_feature_normalizer,
-                                                    layers.Dense(units=1)])# Linear Model
+                                                    layers.Dense(units=1)]) # Linear Model
 
     single_feature_model.summary()
 
