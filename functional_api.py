@@ -30,7 +30,7 @@ def main():
     x = dense1(x)
     outputs = dense2(x)
 
-    # or with multiple outputs
+    ## or with multiple outputs
     # dense2_2 = keras.layers.Dense(1)
     # outputs2 = dense2_2(x)
     # outputs = [output, outputs2]
@@ -38,6 +38,43 @@ def main():
     model = keras.Model(inputs=inputs, outputs=outputs, name="mnist_model")
 
     print(model.summary())
+
+    ## convert functional to sequential model
+    ## only works if the layers graph is linear.
+    # new_model = keras.models.Sequential()
+    # for layer in model.layers:
+    #     new_model.add(layer)
+
+    ## convert sequential to functional
+    # inputs = keras.Input(shape=(28,28))
+    # x = new_model.layers[0](inputs)
+    # for layer in new_model.layers[1:]:
+    #     x = layer(x)
+    # outputs = x
+
+    # model = keras.Model(inputs=inputs, outputs=outputs, name="mnist_model")
+    # print(model.summary())
+
+    # access inputs, outputs for model
+    # access input + output for layer
+    # access all layers
+    inputs = model.inputs
+    outputs = model.outputs
+    print(inputs)
+    print(outputs)
+
+    input0 = model.layers[0].input
+    output0 = model.layers[0].output
+    print(input0)
+    print(output0)
+
+    # Example: Transfer Learning:
+    base_model = keras.applications.VGG16()
+
+    x = base_model.layers[-2].output
+    new_outputs = keras.layers.Dense(1)(x)
+
+    new_model = keras.Model(inputs=base_model.inputs, outputs=new_outputs)
 
 if __name__ == "__main__":
     main()
