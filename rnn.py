@@ -37,7 +37,7 @@ model.add(keras.Input(shape=(28,28))) # seq_length, input_size
 model.add(layers.LSTM(128,
                       return_sequences=False,
                       activation='relu')) # N, 128
-
+# model.add(layers.GRU())
 model.add(layers.Dense(10))
 print(model.summary())
 
