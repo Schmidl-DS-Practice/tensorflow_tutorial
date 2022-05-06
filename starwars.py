@@ -1,4 +1,3 @@
-
 import os
 import math
 import random
@@ -250,5 +249,3 @@ def main():
     evaluate()
 
     transfer_learning()
-
-
